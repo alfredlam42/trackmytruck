@@ -3,116 +3,7 @@ function initMap() {
     zoom: 14,
     center: {lat: -34.397, lng: 150.644}
   });
-  var styles = [
-    {
-        "featureType": "water",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#33658A"
-            },
-            {
-                "saturation": 38
-            },
-            {
-                "lightness": -11
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#8ABB21"
-            },
-            {
-                "saturation": -47
-            },
-            {
-                "lightness": -17
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.park",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#c6e3a4"
-            },
-            {
-                "saturation": 17
-            },
-            {
-                "lightness": -2
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "road.arterial",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#cccccc"
-            },
-            {
-                "saturation": -100
-            },
-            {
-                "lightness": 13
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "administrative.land_parcel",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#5f5855"
-            },
-            {
-                "saturation": 6
-            },
-            {
-                "lightness": -31
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "road.local",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#ffffff"
-            },
-            {
-                "saturation": -100
-            },
-            {
-                "lightness": 100
-            },
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-]
+
   map.setOptions({styles: styles});
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
@@ -206,8 +97,6 @@ function initMap() {
                   title: response[i].name,
                   id: response[i].id,
                   icon: 'https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin_star||F09D16|000000'
-                  // icon: 'http://maps.google.com/mapfiles/ms/icons/red-pushpin.png'
-                  // icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
                 });
               }else{
                 var truckMarker = new google.maps.Marker({
@@ -215,15 +104,11 @@ function initMap() {
                   map: map,
                   title: response[i].name,
                   id: response[i].id,
-                  // icon: 'http://maps.google.com/mapfiles/ms/icons/red-pushpin.png'
-                  // icon: 'https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin_star||F09D16|E65601'
                   icon: 'https://chart.googleapis.com/chart?chst=d_map_xpin_letter&chld=pin||63BFDB|000000'
-                  // icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=F09D16|'
-                  // icon: 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png'
                 });
               }
-              var truckDesc = '<div id="truck-popup"><div class="iw-title"><a href="' + response[i].yelpInfo.url  + '" target="_blank">' + response[i].name + '</a></div>' + '<br><img src="' + response[i].yelpInfo.mediumRating + '">' + "  " + response[i].yelpInfo.review_count + " " + 'Reviews' + '<br><strong>Category: </strong>' + response[i].yelpInfo.categories[0][0] + '<br><strong>Description:</strong>' + '<br>' + response[i].description + '<br><strong>Promotions: </strong>' + '<br>' + response[i].promo + '</div>';
-      
+              var truckDesc = '<div id="truck-popup"><div class="iw-title"><a href="' + response[i].yelpInfo.url  + '" target="_blank">' + response[i].name + '</a></div>' + '<br><img src="' + response[i].yelpInfo.mediumRating + '">' + "  " + response[i].yelpInfo.review_count + " " + 'Reviews' + '<br><strong>Category: </strong>' + response[i].yelpInfo.categories[0][0] + '<br><strong>Description:</strong>' + '<br>' + response[i].description + '</div>';
+
               trucks.push(truckMarker);
               bindInfoWindow(truckMarker, map, truckInfo, truckDesc)
             }
@@ -235,12 +120,10 @@ function initMap() {
       });
 
       function findInBound(trucks){
-        // var inBoundId = [];
 
         for(var i = 0; i < trucks.length; i++){
           if (map.getBounds().contains(trucks[i].position)){
             inBound.push(trucks[i]);
-            // inBoundId.push(trucks[i].id)
           };
         };
 
@@ -322,15 +205,9 @@ function bindInfoWindow(marker, map, infowindow, description) {
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent(description);
     infowindow.open(map, marker);
-    // var parentDiv = $('#truck-popup').parent();
-    // var grandparentDiv = parentDiv.parent();
-    // greatGPDiv = grandparentDiv.parent();
-    // var iwOuter = $('.gm-style-iw');greatGPDiv.parent()
 
-    // .css("background-image", "url('http://cdn.sheknows.com/articles/2013/04/Puppy_2.jpg') no-repeat");
     $('#' + marker.id)[0].scrollIntoView();
   });
-// }
 
   google.maps.event.addListener(infowindow, 'domready', function() {
     // Reference to the DIV which receives the contents of the infowindow using jQuery
@@ -341,13 +218,12 @@ function bindInfoWindow(marker, map, infowindow, description) {
      * and took advantage of the existing reference to .gm-style-iw for the previous DIV with .prev().
      */
     var iwBackground = iwOuter.prev();
-    console.log("IN DOMREADY");
     // Remove the background shadow DIV
     iwBackground.children(':nth-child(2)').css({'display' : 'none'});
 
    // Remove the white background DIV
     iwBackground.children(':nth-child(4)').css({'display' : 'none'});
-  }) 
+  })
 }
 
 Array.prototype.contains = function(k) {
@@ -358,3 +234,66 @@ Array.prototype.contains = function(k) {
   }
   return false;
 }
+
+var styles = [
+  {
+    "featureType": "water",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {"color": "#33658A"},
+      {"saturation": 38},
+      {"lightness": -11},
+      {"visibility": "on"}
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "all",
+    "stylers": [
+      {"hue": "#8ABB21"},
+      {"saturation": -47},
+      {"lightness": -17},
+      {"visibility": "on"}
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "all",
+    "stylers": [
+      {"hue": "#c6e3a4"},
+      {"saturation": 17},
+      {"lightness": -2},
+      {"visibility": "on"}
+    ]
+  },
+  {
+    "featureType": "road.arterial",
+    "elementType": "all",
+    "stylers": [
+      {"hue": "#cccccc"},
+      {"saturation": -100},
+      {"lightness": 13},
+      {"visibility": "on"}
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "all",
+    "stylers": [
+      {"hue": "#5f5855"},
+      {"saturation": 6},
+      {"lightness": -31},
+      {"visibility": "on"}
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "all",
+    "stylers": [
+      {"hue": "#ffffff"},
+      {"saturation": -100},
+      {"lightness": 100},
+      {"visibility": "simplified"}
+    ]
+  },
+]

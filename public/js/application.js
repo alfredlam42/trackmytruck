@@ -4,10 +4,8 @@ $(document).ready(function() {
     windowHeight = $(window).innerHeight();
     $('#content').css('height', (windowHeight));
     if(windowHeight <= 450){
-
       $('#truckmap').css('min-height', (windowHeight*0.5));
       $('#truckmap').css('max-height', (windowHeight*0.5));
-
     } else if(windowHeight <= 625){
       $('#sidebar').css('min-height', (windowHeight));
       $('#truckmap').css('min-height', (windowHeight));
@@ -17,22 +15,22 @@ $(document).ready(function() {
       $('#truckmap').css('min-height', (windowHeight));
       $('#trucklist').css('height', (windowHeight*0.6));
     } else {
-
     $('#sidebar').css('min-height', (windowHeight));
     $('#truckmap').css('min-height', (windowHeight));
     $('#trucklist').css('height', (windowHeight*0.75));
     // $('#trucklist').css('max-height', (windowHeight*0.65));
   }
+
   $('.set-location').css('min-height', (windowHeight*0.5));
   };
+
   setHeight();
-  
+
   $(window).resize(function() {
     setHeight();
   });
 
   tabbedContent();
-
 });
 
 function freezeWindow(){
@@ -45,7 +43,7 @@ function freezeWindow(){
 function tabbedContent(){
   var initialContent = $('li.active a').attr('href');
   $(initialContent).css("display", "block")
-  
+
   $('#tabbed-content li a').click(function(){
     event.preventDefault();
 
